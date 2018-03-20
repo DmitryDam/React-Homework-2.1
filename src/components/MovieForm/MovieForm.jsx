@@ -42,16 +42,30 @@ export default class MovieForm extends React.Component {
 	}
 
 	_genreChange = (evt) => {
+		console.log(evt.target.checked);
 
 		const value = evt.target.value;
-			this.setState({	
+		// 	this.setState({	
 
-		})
-		this.setState({
-			genreValue: [...this.state.genreValue, value]	
+		// })
+		if (evt.target.checked) {
+			this.setState({
+				genreValue: [...this.state.genreValue, value]
+			},
+				function(){
+				console.log(this.state.genreValue)
+				})
 
-		})
-		
+		}
+		else {
+			this.setState({
+      			genreValue: this.state.genreValue.filter(genre => genre !== value)
+
+   		 	}, 	function(){
+				console.log(this.state.genreValue)
+				})
+
+		}
 	}
 
 
@@ -65,6 +79,8 @@ export default class MovieForm extends React.Component {
 			this.props.onFormSubmit(this.state);
 			this.setState(this.stateDefault);
 		}
+		console.log(evt.target)
+		evt.target.reset();
 	}
 	render() {
 		const { title, description,rating, } = this.props;
